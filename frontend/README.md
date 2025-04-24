@@ -1,8 +1,75 @@
-# React + Vite
+#  Electronics eCommerce Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack eCommerce platform for selling electronic products such as PC components, appliances, accessories, and more. Built with the **MERN stack** (MongoDB, Express.js, React.js, Node.js) and styled using **Tailwind CSS**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+>>Features
+
+-  Google Sign-in (Firebase Authentication)
+-  Add to cart with quantity control
+-  View total price dynamically
+-  User-friendly Interface and smooth experience
+-  Smart product suggestions based on cart items
+-  Filter by categories (PC Components, Mobiles, Accessories, etc.)
+-  Theme toggle using `useContext`
+
+
+---
+
+>>Tech Stack
+
+| Frontend               
+-React (Vite)           
+-React Router        
+-Axios      
+               
+| Backend 
+-JWT Auth 
+-Express.js
+-Node.js 
+
+| Database
+-MongoDB 
+-Mongoose 
+
+| Other Tools   
+-Tailwind CSS       
+-Firebase Auth      
+-React-Lucide Icons 
+
+---
+
+>>Getting Started
+
+1. Clone the repository:
+
+=> git clone https://github.com/Unknown-S16/E-Commerce.git
+
+=> cd Ecommerce-main
+
+2. Install dependencies:
+
+=> cd frontend
+
+=> npm install
+
+=> cd backend
+
+=> npm install
+
+3. Start the app:
+
+# In backend folder
+=> node server.js 
+
+# In frontend folder 
+=> npm run dev
+
+---
+
+>>Contact:
+
+For any suggestions or issues, feel free to contact sharath kishan 
+
+[sharath20038@gmail.com]
