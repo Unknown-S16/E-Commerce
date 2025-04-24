@@ -6,11 +6,11 @@ export const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
-
+ const API = "https://e-commerce-zqyw.onrender.com"
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/products');
+        const res = await axios.get(`${API}/api/products`);
         setProducts(res.data);
       } catch (err) {
         console.error('Failed to fetch products:', err);

@@ -11,5 +11,8 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: "Failed to fetch products" });
   }
 });
+router.get('/ping', (req, res) => {
+  res.send('pong');
+});
 
 module.exports = router;

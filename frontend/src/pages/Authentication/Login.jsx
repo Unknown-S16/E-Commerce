@@ -7,9 +7,9 @@ function LoginPage() {
     try {
       const result = await signInWithGoogle();
       const user = result.user;
-      
+      const API = "https://e-commerce-zqyw.onrender.com";
       // Send user data to backend for processing
-      const res = await fetch("http://localhost:5000/api/auth/google", {
+      const res = await fetch(`${API}/api/auth/google`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
