@@ -1,26 +1,49 @@
-import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import NavBar from "./pages/NavBar";
-import Cluster from "./pages/header/Cluster";
-import Grocery from "./pages/sections/Grocery";
-import Credits from "./pages/footer/Credits";
+// App.js
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from './pages/main/Theme';
+import { CartProvider } from './pages/Cart/CartContext';
+import NavBar from './pages/NavBar';
+import Cluster from './pages/header/Cluster';
+import Appliances from './pages/sections/Appliances';
+import Electronics from './pages/sections/Electronics';
+import Credits from './pages/footer/Credits';
+import LoginPage from './pages/Authentication/Login';
+import ProductPage from './pages/main/ProductPage';
+import CartPage from './pages/Cart/Cart';
+import AuthProvider from './pages/Authentication/AuthContext';
+import Profile from './pages/main/Profile';
+import { ProductProvider } from "./pages/main/ProductContext";
+
+
 
 export default function App() {
-  const [On, setOn] = useState(false);
-
   return (
-    <Router>
-      {/* NavBar should be always visible */}
-      <NavBar mode={On} setMode={setOn} />
+    <ThemeProvider>
+      <CartProvider>
+      <Router>
+      <AuthProvider>
+      <ProductProvider>
+        <div className="flex flex-col min-h-screen">
+          <NavBar />
+          <div className="flex-grow ">
+            <Routes>
+              <Route path="/" element={<Cluster />} />
+              <Route path="/home" element={<Cluster />} />
+              <Route path="/product" element={<ProductPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/appliances" element={<Appliances />} />
+              <Route path="/electronics" element={<Electronics />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/profile" element={<Profile />} />
 
-      {/* Main Content with Routes */}
-      <Routes>
-        <Route path="/" element={<Cluster mode={On} />} />
-        <Route path="/grocery" element={<Grocery mode={On} />} />
-      </Routes>
-
-      {/* Other Sections */}
-      <Credits />
-    </Router>
+            </Routes>
+          </div>
+          <Credits />
+        </div>
+        </ProductProvider>
+        </AuthProvider>
+      </Router>
+      </CartProvider>
+    </ThemeProvider>
   );
 }

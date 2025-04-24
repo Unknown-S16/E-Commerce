@@ -1,107 +1,82 @@
-import { useEffect, useRef, useState } from "react";
-import Groceries from "../sections/G-data";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useRef, useContext, useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import Theme from './Theme';
+import { ProductContext } from '../main/ProductContext';
 
-export default function Main({mode}) {
-  const scrollRef = useRef(null);
-  const [isHovered, setIsHovered] = useState(false);
-  let isDragging = false, startX, scrollLeft;
+export default function Main() {
+  const { products } = useContext(ProductContext);
+  const { mode } = useContext(Theme);
+  const [hoveredCategory, setHoveredCategory] = useState(null);
+  const scrollRefs = useRef({});
+  const navigate = useNavigate();
 
-   
+  // Group products by category
+  const categories = {};
+  products.forEach((item) => {
+    if (!categories[item.category]) {
+      categories[item.category] = [];
+    }
+    categories[item.category].push(item);
+  });
 
-  // Auto-scroll every 3 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (scrollRef.current) {
-        scrollRef.current.scrollBy({ left: 200, behavior: "smooth" });
-
-        // If reached the end, reset to start
-        if (
-          scrollRef.current.scrollLeft + scrollRef.current.clientWidth >=
-          scrollRef.current.scrollWidth
-        ) {
-          scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
-        }
-      }
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // Scroll on button click
-  const scroll = (direction) => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: direction * 250, behavior: "smooth" });
+  // Scroll function
+  const scroll = (category, direction) => {
+    const container = scrollRefs.current[category];
+    if (container) {
+      container.scrollBy({ left: direction * 400, behavior: 'smooth' });
     }
   };
 
-  // Drag to scroll
-  const startDragging = (e) => {
-    isDragging = true;
-    startX = e.pageX - scrollRef.current.offsetLeft;
-    scrollLeft = scrollRef.current.scrollLeft;
-  };
-
-  const stopDragging = () => {
-    isDragging = false;
-  };
-
-  const dragScroll = (e) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - startX) * 2; // Scroll speed
-    scrollRef.current.scrollLeft = scrollLeft - walk;
-  };
-
   return (
-    <div className="relative w-full" 
-         onMouseEnter={() => setIsHovered(true)}
-         onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Section Title */}
-      <div className={`px-6 py-2   w-full ${mode? "bg-gray-400":"bg-red-400"}`}>
-        <h1 className="text-white text-xl font-bold ">What's Special</h1>
-      </div>
+    <div className={`${mode ? 'bg-gray-500' : 'bg-violet-100'} w-full`}>
+      <h1 className={`text-xl font-bold p-2 ${mode ? 'bg-gray-400' : 'bg-purple-300'} text-white`}>
+        What's Special
+      </h1>
 
-      {/* Scrollable Container */}
-      <div
-        ref={scrollRef}
-        className={`flex overflow-x-auto scroll-smooth whitespace-nowrap gap-4 p-4 no-scrollbar cursor-grab active:cursor-grabbing ${mode?"bg-gray-700":"bg-white"}`}
-        onMouseDown={startDragging}
-        onMouseLeave={stopDragging}
-        onMouseUp={stopDragging}
-        onMouseMove={dragScroll}
-      >
-        {Groceries.map((item) => (
-          <div key={item.id} className={`min-w-[200px] p-4 shadow-md rounded-lg select-none border-1 border-gray-300 bg-white`}>
-            <img src={item.image} alt={item.name} className="nodrag rounded-3xl bg-white p-2 " />
-            <h2 className="text-lg font-semibold mt-2">{item.name}</h2>
-            <p className="text-gray-600">${item.price.toFixed(2)}</p>
-            <p className="text-yellow-500">⭐ {item.rating}</p>
+      {Object.keys(categories).map((cat) => (
+        <div
+          key={cat}
+          className="relative mb-8"
+          onMouseEnter={() => setHoveredCategory(cat)}
+          onMouseLeave={() => setHoveredCategory(null)}
+        >
+          <div
+            ref={(el) => (scrollRefs.current[cat] = el)}
+            className="flex overflow-x-auto gap-4 px-4 py-2 no-scrollbar scroll-smooth"
+          >
+            {categories[cat].map((item) => (
+              <div
+                key={item.id}
+                className="min-w-[200px] bg-white border border-gray-200 rounded-lg p-3 shadow-md mt-6"
+                onClick={() => navigate('/product', { state: item })}
+              >
+                <img src={item.image} alt={item.name} className="h-40 w-full object-contain" />
+                <h3 className="font-bold mt-2 text-gray-600 truncate">{item.name}</h3>
+                <p className="text-sm truncate text-gray-600">{item.desc}</p>
+                <p className="text-blue-500 font-bold">₹ {item.price.toFixed(2)}</p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      {/* Left Button */}
-      {isHovered && (
-        <button
-          className="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full shadow-md"
-          onClick={() => scroll(-1)}
-        >
-          <ChevronLeft />
-        </button>
-      )}
-
-      {/* Right Button */}
-      {isHovered && (
-        <button
-          className="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full shadow-md"
-          onClick={() => scroll(1)}
-        >
-          <ChevronRight />
-        </button>
-      )}
+          {hoveredCategory === cat && (
+            <>
+              <button
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full shadow-md"
+                onClick={() => scroll(cat, -1)}
+              >
+                <ChevronLeft />
+              </button>
+              <button
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full shadow-md"
+                onClick={() => scroll(cat, 1)}
+              >
+                <ChevronRight />
+              </button>
+            </>
+          )}
+        </div>
+      ))}
     </div>
   );
 }

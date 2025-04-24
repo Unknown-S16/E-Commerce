@@ -1,46 +1,62 @@
-import { useNavigate } from "react-router-dom";
-import Main from "../main/Main"
+import { useNavigate } from 'react-router-dom';
+import Main from '../main/Main';
+import Theme from '../main/Theme';
+import { useContext } from 'react';
 
-export default function Section({mode}) {
- 
+export default function Section() {
   const navigate = useNavigate();
-
+  const {mode} = useContext(Theme);
 
   return (
     <>
-    <div className={`flex mx-auto p-6  sm:gap-4 justify-center items-stretch ${mode?"bg-gray-700":null}`}>
-      {/* Grocery Section */}
-      <section onClick={() => navigate("/grocery")} className="group bg-green-200 p-6 rounded-lg shadow-sm md:flex select-none cursor-pointer w-1/2 hover:shadow-md transition-all  shadow-gray-500 ">
-        <div className="flex flex-col items-center justify-center ">
-          <h2 className="text-3xl font-bold text-green-700 mb-4">Groceries</h2>
-          <p className="hidden md:inline text-gray-700 text-center lg:text-xl">
-            Explore a variety of fresh fruits, vegetables, and daily essentials
-            at great prices.
-          </p>
-          <button className="bg-gray-100 py-2 rounded-3xl text-green-700 font-bold px-6 mt-8 cursor-pointer">
-            Explore
-          </button>
-        </div>
-        <img className="imageRep" src="/grocery.png" alt="grocery" />
-      </section>
+      <div
+        className={`flex mx-auto p-6 gap-[2%] justify-center items-stretch ${
+          mode ? 'bg-gray-500' : "bg-violet-100"
+        }`}
+      >
+        {/* Mobile accessories Section */}
+        <section
+          onClick={() => navigate('/electronics')}
+          className={` ${ mode ? "bg-violet-400 text-violet-900":"bg-violet-300 text-violet-600"} group  p-6 rounded-lg shadow-sm lg:flex select-none cursor-pointer w-1/2 hover:shadow-md transition-all  shadow-gray-500 `}
+        >
+          <div className="flex flex-col items-center justify-center ">
+            <h2 className="text-3xl  font-bold  mb-4">
+              Electronic Accessories
+            </h2>
+            <p className="hidden lg:inline text-gray-700 text-center lg:text-lg">
+              Stay charged. Stay connected. Whether it’s work or play, we’ve got
+              the gear. Smart accessories for your smart lifestyle.
+            </p>
+            <button className={` ${mode? "bg-violet-300 ":"bg-gray-100"}  py-2 rounded-3xl  font-bold px-6 mt-8 cursor-pointer mb-[8%]`}>
+              Explore
+            </button>
+          </div>
+          <img className="imageRep h-" src="/mobile.png" alt="mobile" />
+        </section>
 
-      {/* Electronics Section */}
-      <section className="bg-blue-200 p-6 rounded-lg shadow-sm md:flex select-none cursor-pointer w-1/2 hover:shadow-md transition-all shadow-gray-500" >
-        <div className="flex flex-col justfy-center items-center">
-          <h2 className="text-3xl font-bold text-blue-700 mb-4 ">Electronics</h2>
-          <p className="hidden md:inline text-gray-700 text-center lg:text-xl">
-            Discover the latest gadgets, smartphones, and home appliances with
-            top deals.
-          </p>
-          <button className="bg-gray-100 py-2 rounded-3xl text-blue-700 font-bold px-6 mt-8 cursor-pointer">
-            Explore
-          </button>
-        </div>
+        {/* Electronics Section */}
+        <section
+          onClick={() => navigate('/appliances')}
+          className={` ${mode?"bg-blue-400 text-blue-900":"bg-blue-300 text-blue-600"}  p-6 rounded-lg shadow-sm lg:flex select-none cursor-pointer w-1/2 hover:shadow-md transition-all shadow-gray-500`}
+        >
+          <div className="flex flex-col justfy-center items-center">
+            <h2 className="text-3xl font-bold  mb-4 ">
+              Home Appliances
+            </h2>
+            <p className="hidden lg:inline text-gray-700 text-center lg:text-lg">
+              Turn your house into a smart home. From kitchen to laundry,
+              experience effortless living. Reliable. Stylish. Made for your
+              comfort
+            </p>
+            <button className={`${mode? "bg-blue-300":"bg-gray-100"}  py-2 rounded-3xl font-bold px-6 mt-8 cursor-pointer`}>
+              Explore
+            </button>
+          </div>
 
-        <img className=" imageRep" src="/electronic.png" alt="electronic" />
-      </section>
-    </div>
-    <Main mode={mode}/>
+          <img className=" imageRep" src="/electronic.png" alt="electronic" />
+        </section>
+      </div>
+      <Main mode={mode} />
     </>
   );
 }

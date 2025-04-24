@@ -1,28 +1,15 @@
-const express =require('express')
-const Post = require('../models/Model');
-
+const express = require("express");
 const router = express.Router();
+const Product = require("../models/productModel"); // adjust path as needed
 
-router.get('/',async(req,res)=>{
-    try{
-        const posts = await Post.find();
-        res.status(200).json(posts);
-    }
-    catch(err){
-        res.status(500).json({message:'Internal server error',error:err.message})
-    }
+// GET all products
+router.get("/", async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch products" });
+  }
 });
-
-router.post('/',async(req,res)=>{
-    const {title,content} = req.body;
-    const post = new Post({title,content});
-    try{
-        const posts=await post.save();
-        res.status(201).json(posts);
-    }
-    catch(err){
-        res.status(500).json({message:"Server error", error: err.message})
-    }
-})
 
 module.exports = router;

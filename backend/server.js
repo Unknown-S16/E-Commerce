@@ -2,19 +2,27 @@
 // Backend Logic
 require("dotenv").config();
 const postRoutes=require("./pack/routes/Routes")
+const authRoutes=require("./pack/routes/auth")
+
 const express = require("express");
 const cors = require("cors");
 const { default: mongoose } = require("mongoose");
- 
-const app=express();
-app.use(cors());
-app.use("/api/post",postRoutes)
 
+const app=express();
+app.use(cors({
+  origin: "http://localhost:5173", 
+  credentials: true
+}));
 app.use(express.json());
+
+app.use("/api/auth", authRoutes);
+
+app.use("/api/products",postRoutes)
+
 
 async function ConnectDB() {
   try{
-  mongoose.connect(process.env.MongoDBURI)
+  mongoose.connect(process.env.MongoDB)
   console.log("mongo db is connected");
 }
 catch(err){
@@ -22,7 +30,6 @@ catch(err){
 }
 }
 ConnectDB();
-
 
 const server = app.listen(process.env.PORT,()=>
   console.log("server is running on port",process.env.PORT)
