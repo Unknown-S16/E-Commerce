@@ -10,7 +10,7 @@ const { default: mongoose } = require("mongoose");
 
 const app=express();
 app.use(cors({
-  origin: "https://e-commerce-ivory-two.vercel.app/", 
+  origin: "https://e-commerce-ivory-two.vercel.app", 
   credentials: true
 }));
 app.use(express.json());
