@@ -20,7 +20,7 @@ export default function Section() {
             <h2 className="text-xl md:text-3xl  font-bold  mb-4">
               Electronic Accessories
             </h2>
-            <p className="hidden lg:inline text-gray-700 text-center lg:text-lg">
+            <p className={`hidden lg:inline  text-center lg:text-lg ${mode? "text-gray-400":"text-gray-600" }`}>
               Stay charged. Stay connected. Whether it’s work or play, we’ve got
               the gear. Smart accessories for your smart lifestyle.
             </p>
@@ -40,7 +40,7 @@ export default function Section() {
             <h2 className="text-xl md:text-3xl font-bold  mb-4 ">
               Home Appliances
             </h2>
-            <p className="hidden lg:inline text-gray-700 text-center lg:text-lg">
+            <p className={`hidden lg:inline  text-center lg:text-lg ${mode? "text-gray-400":"text-gray-600" }`}>
               Turn your house into a smart home. From kitchen to laundry,
               experience effortless living. Reliable. Stylish. Made for your
               comfort
