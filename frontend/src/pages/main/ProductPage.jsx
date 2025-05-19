@@ -30,7 +30,7 @@ const ProductPage = () => {
         <img
           src={item.image}
           alt={item.name}
-          className="w-xs object-cover rounded-lg"
+          className=" max-w-400 object-cover rounded-lg"
         />
 
         <div className={`${mode ? "text-gray-200" : "text-gray-600"} flex flex-col`}>
@@ -38,7 +38,8 @@ const ProductPage = () => {
 
           <p className="text-xl font-semibold">
             <span className="line-through text-sm text-gray-400">
-              M.R.P ₹ {item.price * 3}
+              M.R.P ₹ {(item.price * 3).toFixed(2)}
+
             </span>
             &nbsp;₹ {item.price}
           </p>
