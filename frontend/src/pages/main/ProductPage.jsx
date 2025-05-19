@@ -30,7 +30,7 @@ const ProductPage = () => {
         <img
           src={item.image}
           alt={item.name}
-          className=" max-w-400 object-cover rounded-lg"
+          className=" max-w-40 object-cover rounded-lg"
         />
 
         <div className={`${mode ? "text-gray-200" : "text-gray-600"} flex flex-col`}>
