@@ -18,20 +18,20 @@ const ProductPage = () => {
 
   return (
     <div
-      className={`${
-        mode ? 'bg-gray-800' : 'bg-gray-100'
-      } min-h-screen py-10 px-4 flex justify-center`}
+      className={`min-h-screen py-10 px-4 flex justify-center`}
     >
-      <div
-        className={`${
-          mode ? 'bg-gray-600 text-white' : 'bg-white'
-        } rounded-2xl shadow-xl p-6 grid md:grid-cols-2 md:max-w-6xl md:h-full md:w-full `}
-      >
-        <img
-          src={item.image}
-          alt={item.name}
-          className=" max-w-40 object-cover rounded-lg"
-        />
+     <div
+  className={`${
+    mode ? 'bg-gray-600 text-white' : 'bg-white'
+  } rounded-2xl shadow-xl p-6 grid md:grid-cols-2 md:max-w-6xl md:h-full md:w-full`}
+>
+  <div className="flex justify-center items-center">
+    <img
+      src={item.image}
+      alt={item.name}
+      className="max-w-40 object-cover rounded-lg"
+    />
+  </div>
 
         <div className={`${mode ? "text-gray-200" : "text-gray-600"} flex flex-col`}>
           <p className="text-3xl font-bold mb-2">{item.name}</p>
