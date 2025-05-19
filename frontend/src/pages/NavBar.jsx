@@ -69,9 +69,9 @@ const Navbar = () => {
   };
   return (
     <nav
-      className={`${
+      className={`${ 
         mode ? 'bg-gray-800 text-white' : 'bg-violet-300'
-      } shadow-md p-2`}
+      } shadow-md p-4 px-6 rounded-4xl m-3 max-w-300 mx-auto w-[90%]`}
     >
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex  items-center text-xl  font-semibold font-serif">
