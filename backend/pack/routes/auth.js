@@ -1,12 +1,7 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-require("dotenv").config();
 
 const router = express.Router();
-const JWT_SECRET = process.env.JWT_SECRET; 
-
-
 
 // Google auth route
 router.post("/google", async (req, res) => {
@@ -19,14 +14,13 @@ router.post("/google", async (req, res) => {
       user = await User.create({
         name,
         email,
-        googleId, 
+        googleId,
         photo,
         provider: "google",
       });
     }
 
-    const token = jwt.sign({ id: user._id }, JWT_SECRET);
-    res.json({ token });
+    res.json({ msg: "Login successful", user });
   } catch (err) {
     res.status(500).json({ msg: "Google login failed", error: err.message });
   }

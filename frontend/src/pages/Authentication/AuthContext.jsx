@@ -9,7 +9,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user); // This should include photoURL if signed in via Google
+      setCurrentUser(user); 
     });
     return () => unsubscribe();
   }, []);
