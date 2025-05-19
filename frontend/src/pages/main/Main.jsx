@@ -11,7 +11,7 @@ export default function Main() {
   const scrollRefs = useRef({});
   const navigate = useNavigate();
 
-  // Group products by category
+  
   const categories = {};
   products.forEach((item) => {
     if (!categories[item.category]) {
@@ -20,7 +20,7 @@ export default function Main() {
     categories[item.category].push(item);
   });
 
-  // Scroll function
+ 
   const scroll = (category, direction) => {
     const container = scrollRefs.current[category];
     if (container) {

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProductContext } from '../main/ProductContext';
-import SearchBar from '../main/SeachBar'; // update the path if needed
+import SearchBar from '../main/SeachBar';
 
 export default function Appliances() {
   const { products: allProducts } = useContext(ProductContext);
@@ -27,7 +27,7 @@ export default function Appliances() {
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4 text-center">Home Appliances</h2>
-      <SearchBar onSearch={setSearchQuery} /> {/* Live search */}
+      <SearchBar onSearch={setSearchQuery} />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {products.map(item => (
           <div

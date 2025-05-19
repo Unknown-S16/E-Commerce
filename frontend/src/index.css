@@ -18,7 +18,7 @@
 
 @media (max-width: 640px) { 
     .product {
-        width: 150px; /* Smaller screens */
+        width: 150px; 
         height: 150px;
     }
 }
